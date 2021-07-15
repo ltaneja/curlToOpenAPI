@@ -5,7 +5,19 @@ const fs = require('fs');
 const url = require('url');
 const curlsData = JSON.parse(fs.readFileSync('curls.json', 'utf-8'));
 const paths = {};
-const definitions = {};
+const definitions = {
+    "Error": {
+        "type": "object",
+        "properties": {
+            "messages": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+};
 const swaggerObj = {
     "swagger": '2.0',
     "basePath": curlsData.basePath,
@@ -26,6 +38,17 @@ const swaggerObj = {
 }
 
 const envVars = {
+    version: Date.now(),
+    start: 0,
+    end: Date.now(),
+    authorization: '1483357830adminADNOC',
+    streamTemplateId: 'ffc17056a54b70cbdce7152683d62e3fdfa9ea77873cd7f62b9f7c9c519a2eda',
+    ofType: 'WELL',
+    uuid: "227a30f3-a750-3b9b-8ca2-d4e6cf3310e8",
+    propertyDescriptor: "name.e=NO_AGGREGATION",
+    ofRelationshipType: 'ORG_RELATIONSHIPS',
+    direction: 'DOWN',
+    ofEntityType: 'WELL'
 }
 main()
     .then((_) => console.log('done'))
@@ -65,7 +88,8 @@ async function main() {
                     parameters: parameters,
                     produces: ["application/json"],
                     responses: {
-                        "200": { description: "", schema: { $ref: `#/definitions/model${i}` } }
+                        "200": { description: "Status 200", schema: { $ref: `#/definitions/model${i}` } },
+                        "400": { description: "Status 400", schema: { $ref: `#/definitions/Error` } }
                     }
                 }
             };
@@ -119,7 +143,10 @@ function updateUrl(url) {
 
 function updateObj(obj) {
     Object.keys(obj).forEach(key => {
-        obj[key] = envVars[key]
+        if (!obj[key]) {
+            obj[key] = envVars[key];
+        }
+        // obj[key] = envVars[key]
     });
 }
 
