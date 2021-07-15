@@ -38,17 +38,6 @@ const swaggerObj = {
 }
 
 const envVars = {
-    version: Date.now(),
-    start: 0,
-    end: Date.now(),
-    authorization: '1483357830adminADNOC',
-    streamTemplateId: 'ffc17056a54b70cbdce7152683d62e3fdfa9ea77873cd7f62b9f7c9c519a2eda',
-    ofType: 'WELL',
-    uuid: "227a30f3-a750-3b9b-8ca2-d4e6cf3310e8",
-    propertyDescriptor: "name.e=NO_AGGREGATION",
-    ofRelationshipType: 'ORG_RELATIONSHIPS',
-    direction: 'DOWN',
-    ofEntityType: 'WELL'
 }
 main()
     .then((_) => console.log('done'))
