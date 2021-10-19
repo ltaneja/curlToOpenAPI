@@ -18,6 +18,7 @@ const definitions = {
         }
     }
 };
+
 const swaggerObj = {
     "swagger": '2.0',
     "basePath": curlsData.basePath,
