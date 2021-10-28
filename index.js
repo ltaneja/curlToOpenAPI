@@ -79,7 +79,8 @@ async function main() {
                     produces: ["application/json"],
                     responses: {
                         "200": { description: "Status 200", schema: { $ref: `#/definitions/model${i}` } },
-                        "400": { description: "Status 400", schema: { $ref: `#/definitions/Error` } }
+                        "400": { description: "Status 400", schema: { $ref: `#/definitions/Error` } },
+                        "500": { description: "Status 500", schema: { $ref: `#/definitions/Error` } }
                     }
                 }
             };
@@ -136,7 +137,6 @@ function updateObj(obj) {
         if (!obj[key]) {
             obj[key] = envVars[key];
         }
-        // obj[key] = envVars[key]
     });
 }
 
@@ -162,6 +162,8 @@ function createRespObj(obj) {
         case 'string':
             resObj.type = 'string'
             resObj.example = obj
+            break;
+        case default:
             break;
     }
     return resObj;
